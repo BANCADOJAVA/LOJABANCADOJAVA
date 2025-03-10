@@ -22,16 +22,15 @@
 
         /* letra da parte do cabeçalho. e fundo */
         header {
-    background-color: #000000;
-    color: white;
-    padding: 20px;
-    font-size: 24px;
-    display: flex;
-    justify-content: centro;  /* Centraliza o conteúdo no header */
-    align-items: centro;
-    box-shadow: 0 4px 8px rgb(255, 255, 255);
-}
-
+            background-color: #000000;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgb(255, 255, 255);
+        }
         .logo {
             display: flex;
             align-items: center;
@@ -50,17 +49,53 @@
         .carrinho-icone img {
             width: 50px;
         }
-
+/* mexe no icone das compra que fica no carrinho */
         .carrinho-icone span {
             position: absolute;
-            top: -5px;
-            right: -2px;
+            top: -40px;
+            right: +10px;
             background: rgb(255, 1, 1);
             color: white;
             border-radius: 50%;
             padding: 2px 2px;
             font-size: 14px;
         }
+    /* barra de pesquisa   */
+    .barra-pesquisa {
+    position: fixed; /* Fixa a barra na tela */
+    top: 20px; /* Distância do topo */
+    right: 20px; /* Distância da borda direita */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 100; /* Garante que a barra fique acima de outros elementos */
+}
+
+.input-pesquisa {
+    padding: 10px;
+    width: 100px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-pesquisa {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-pesquisa:hover {
+    background-color: #0056b3;
+}
+
+
 
         /* Caça-níqueis */
         .caca-niqueis-container {
@@ -215,41 +250,43 @@
             background-color: #218838;
         }
 
-        #carrinho {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-            display: none;
-            width: 300px;
-            max-height: 80vh;
-            overflow-y: auto;
-            z-index: 100;
-        }
+  #carrinho {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    display: none;
+    width: 100%; /* Ajusta a largura para ocupar todo o espaço disponível */
+    max-width: 350px; /* Limita a largura máxima */
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 100;
+}
 
-        #carrinho h2 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+#carrinho h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: px;
+}
 
-        #carrinho ul {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 15px;
-        }
+#carrinho ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
 
-        #carrinho li {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 16px;
-            align-items: center;
-        }
+#carrinho li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 16px;
+    align-items: center;
+}
+
 
         .remove-produto {
             color: red;
@@ -337,6 +374,13 @@
             <img src="https://scontent-for2-1.xx.fbcdn.net/v/t39.30808-6/482245099_3000180520158059_8092286207162561307_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeHLc6EgxN0vIV1sqoxkkEgqscDOz_dO97exwM7P9073t2zssiSxXxlE_Xv50p2jdB-lxRFwilYkJH-bQcjCYMot&_nc_ohc=Ow961RYjBmoQ7kNvgGRu7xd&_nc_zt=23&_nc_ht=scontent-for2-1.xx&_nc_gid=A0N5lqTMDJCm9UrrET-X2yv&oh=00_AYHrcCgotBx1LCNb4gFluvhDOnZ-Bym9HGzv_ym-MKWWdg&oe=67D4AF40" alt="Logo da Loja">
             <span>BANCA DO JAVA</span>
         </div>
+        <form action="https://www.google.com/search" method="get" class="barra-pesquisa">
+            <input type="text" placeholder="Pesquisar no Google..." name="q" class="input-pesquisa">
+            <button type="submit" class="btn-pesquisa">Buscar</button>
+        </form>
+        
+        </header>
+        
         <div class="carrinho-icone" onclick="toggleCarrinho()">
             <img src="https://png.pngtree.com/png-clipart/20240727/original/pngtree-shopping-cart-icon-png-image_15650267.png"
                 alt="Carrinho">
@@ -344,7 +388,7 @@
         </div>
     </header>
     <span>"Depois de colocar seus produtos no carrinho e apertar o botão 'Finalizar Compra',
-        o botão de 'Girar' será ativado."</span>
+        o botão de 'Girar' será destravado."</span>
     <div class="caca-niqueis-container">
         <div class="caca-niqueis">
             <div id="simbolo1">🥳</div>
