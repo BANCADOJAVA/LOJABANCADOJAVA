@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* parte do fundo do site. */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #f8f6f6, #ededf3, #d5d4d3, #fafbff);
+            color: #333;
+            text-align: center;
+        }
+
+        /* letra da parte do cabaçalho. */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgb(255, 255, 255);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        /* formato e tamanho  */
+        .logo img {
+            width: 200px;
+            margin-right: 100px;
+        }
+
+        .carrinho-icone {
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* imagem do carrinho */
+        .carrinho-icone img {
+            width: 50px;
+        }
+
+        .carrinho-icone span {
+            position: absolute;
+            top: -5px;
+            right: -2px;
+            background: rgb(255, 1, 1);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 2px;
+            font-size: 14px;
+        }
+
+        .caca-niqueis-container {
+            margin-top: 2px;
+            text-align: center;
+        }
+
+        /* tamanha e formato */
+        .caca-niqueis {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 50px;
+            transform: perspective(1000px) rotateX(15deg);
+        }
+
+        /* configuração das imagens */
+        .caca-niqueis div {
+            width: 50px;
+            height: 60px;
+            border: 3px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #120808;
+            border-radius: 100000px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            transform: rotateX(10deg);
+            transition: all 0.3s ease;
+        }
+
+        .caca-niqueis div:hover {
+            transform: scale(1.1) rotateX(5deg);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* botão do caça-niqueis */
+        .girar-btn {
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+            border: none;
+            padding: 3px 3px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 100px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .girar-btn:hover {
+            background-color: #ff0d0d;
+            transform: translateY(-2px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* texto do caça-niqueis */
+        .desconto-area {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        .desconto-texto {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .filtro-categorias {
+            background-color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .filtro-categorias button {
+            background: linear-gradient(40deg, #302e2e, #000000, #000000, #5b5b5b);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .filtro-categorias button:hover {
+            background-color: #000000;
+        }
+
+        /* aqyui vc mexe no tamanho do card onde fica os produtos */
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 40px 0;
+
+        }
+
+        .produto {
+            background-color: white;
+            width: 200px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .produto:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .produto h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .produto p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #carrinho {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            display: none;
+            width: 300px;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        #carrinho h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #carrinho ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        #carrinho li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+            align-items: center;
+        }
+
+        .remove-produto {
+            color: red;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        #total {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        #finalizar-compra {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+        }
+
+        #finalizar-compra:hover {
+            background-color: #e80505;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- logo da prte de cima do site -->
+    <header>
+        <div class="logo">
+            <img src="https://via.placeholder.com/60" alt="Logo da Loja">
+            <span>Minha Loja Online</span>
+        </div>
+        <div class="carrinho-icone" onclick="toggleCarrinho()">
+            <img src="https://png.pngtree.com/png-clipart/20240727/original/pngtree-shopping-cart-icon-png-image_15650267.png"
+                alt="Carrinho">
+            <span id="contador-carrinho">0</span>
+        </div>
+    </header>
+    <span>"Depois de colocar seus produtos no carrinho e apertar o botão 'Finalizar Compra',
+        o botão de 'Girar' será destravado."</span>
+    <div class="caca-niqueis-container">
+        <div class="caca-niqueis">
+            <div id="simbolo1">🥳</div>
+            <div id="simbolo2">🥳</div>
+            <div id="simbolo3">🥳</div>
+        </div>
+
+        <button class="girar-btn" id="girarBtn" onclick="girarCacaNiqueis()" disabled>Girar</button>
+        <div class="desconto-area">
+            <span id="desconto-texto">
+                Gire para ganhar um desconto!<br>
+                5% 🍋🍋🍋 <br>
+                10% 🍊🍊🍊 <br>
+                15% 🍉🍉🍉 <br>
+                20% 🍒🍒🍒
+            </span>
+        </div>
+
+        <div class="desconto-texto">
+            <span id="contador-giros">Giros restantes: 5</span>
+        </div>
+    </div>
+
+    <div class="filtro-categorias">
+        <button onclick="filtrarCategoria('eletronicos')">Eletrônicos</button>
+        <button onclick="filtrarCategoria('roupas')">Roupas</button>
+        <button onclick="filtrarCategoria('alimentos')">Alimentos</button>
+        <button onclick="filtrarCategoria('tudo')">Tudo</button>
+    </div>
+
+    <div class="container">
+        <div class="produto categoria-eletronicos">
+            <img src="data:image/jpeg;base64,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" alt="Smartphone"
+                style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 15px;">
+            <h2>Smartphone</h2>
+            <p>R$ 1000,00</p>
+            <button onclick="adicionarAoCarrinho('Smartphone', 1000)">Adicionar</button>
+        </div>
+        <div class="produto categoria-roupas">
+            <img src="https://rivierawear.com.br/cdn/shop/files/S524a556a74dd4fb68af998e54ae74ce0a_1000x.jpg?v=1687793451" alt="Smartphone"
+                style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 15px;">
+            <h2>Camisa Polo</h2>
+            <p>R$ 50,00</p>
+            <button onclick="adicionarAoCarrinho('Camisa Polo', 50)">Adicionar</button>
+        </div>
+        <div class="produto categoria-roupas">
+            <img src="https://acdn-us.mitiendanube.com/stores/003/859/035/products/4b0cf032e73b8f1db3051c6ac9684c02-266c122c062ad6393217085351637450-1024-1024.jpg" alt="Smartphone"
+                style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 15px;">
+            <h2>Calça Jeans</h2>
+            <p>R$ 100,00</p>
+            <button onclick="adicionarAoCarrinho('Calça Jeans', 100)">Adicionar</button>
+        </div>
+        <div class="produto categoria-eletronicos">
+            <img src="URL_DA_IMAGEM_DO_PRODUTO" alt="Smartphone"
+                style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 15px;">
+            <h2>Fone de Ouvido</h2>
+            <p>R$ 150,00</p>
+            <button onclick="adicionarAoCarrinho('Fone de Ouvido', 150)">Adicionar</button>
+        </div>
+        <div class="produto categoria-alimentos">
+            <img src="URL_DA_IMAGEM_DO_PRODUTO" alt="Smartphone"
+                style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 15px;">
+            <h2>Chocolate</h2>
+            <p>R$ 20,00</p>
+            <button onclick="adicionarAoCarrinho('Chocolate', 20)">Adicionar</button>
+        </div>
+        <div class="container">
+            <div class="produto categoria-eletronicos">
+                <img src="URL_DA_IMAGEM_DO_PRODUTO" alt="Smartphone"
+                style="width: 100%; height: auto; border-radius: 10px; margin-bottom: 15px;">
+                <h2>Smartphone</h2>
+                <p>R$ 1000,00</p>
+                <button onclick="adicionarAoCarrinho('Smartphone', 1000)">Adicionar</button>
+            </div>
+            <div class="produto categoria-roupas">
+                <h2>Camisa Polo</h2>
+                <p>R$ 50,00</p>
+                <button onclick="adicionarAoCarrinho('Camisa Polo', 50)">Adicionar</button>
+            </div>
+            <div class="produto categoria-roupas">
+                <h2>Calça Jeans</h2>
+                <p>R$ 100,00</p>
+                <button onclick="adicionarAoCarrinho('Calça Jeans', 100)">Adicionar</button>
+            </div>
+            <div class="produto categoria-eletronicos">
+                <h2>Fone de Ouvido</h2>
+                <p>R$ 150,00</p>
+                <button onclick="adicionarAoCarrinho('Fone de Ouvido', 150)">Adicionar</button>
+            </div>
+            <div class="produto categoria-alimentos">
+                <h2>Chocolate</h2>
+                <p>R$ 20,00</p>
+                <button onclick="adicionarAoCarrinho('Chocolate', 20)">Adicionar</button>
+            </div>
+            <div class="container">
+                <div class="produto categoria-eletronicos">
+                    <h2>Smartphone</h2>
+                    <p>R$ 1000,00</p>
+                    <button onclick="adicionarAoCarrinho('Smartphone', 1000)">Adicionar</button>
+                </div>
+                <div class="produto categoria-roupas">
+                    <h2>Camisa Polo</h2>
+                    <p>R$ 50,00</p>
+                    <button onclick="adicionarAoCarrinho('Camisa Polo', 50)">Adicionar</button>
+                </div>
+                <div class="produto categoria-roupas">
+                    <h2>Calça Jeans</h2>
+                    <p>R$ 100,00</p>
+                    <button onclick="adicionarAoCarrinho('Calça Jeans', 100)">Adicionar</button>
+                </div>
+                <div class="produto categoria-eletronicos">
+                    <h2>Fone de Ouvido</h2>
+                    <p>R$ 150,00</p>
+                    <button onclick="adicionarAoCarrinho('Fone de Ouvido', 150)">Adicionar</button>
+                </div>
+                <div class="produto categoria-alimentos">
+                    <h2>Chocolate</h2>
+                    <p>R$ 20,00</p>
+                    <button onclick="adicionarAoCarrinho('Chocolate', 20)">Adicionar</button>
+                </div>
+                <div class="container">
+                    <div class="produto categoria-eletronicos">
+                        <h2>Smartphone</h2>
+                        <p>R$ 1000,00</p>
+                        <button onclick="adicionarAoCarrinho('Smartphone', 1000)">Adicionar</button>
+                    </div>
+                    <div class="produto categoria-roupas">
+                        <h2>Camisa Polo</h2>
+                        <p>R$ 50,00</p>
+                        <button onclick="adicionarAoCarrinho('Camisa Polo', 50)">Adicionar</button>
+                    </div>
+                    <div class="produto categoria-roupas">
+                        <h2>Calça Jeans</h2>
+                        <p>R$ 100,00</p>
+                        <button onclick="adicionarAoCarrinho('Calça Jeans', 100)">Adicionar</button>
+                    </div>
+                    <div class="produto categoria-eletronicos">
+                        <h2>Fone de Ouvido</h2>
+                        <p>R$ 150,00</p>
+                        <button onclick="adicionarAoCarrinho('Fone de Ouvido', 150)">Adicionar</button>
+                    </div>
+                    <div class="produto categoria-alimentos">
+                        <h2>Chocolate</h2>
+                        <p>R$ 20,00</p>
+                        <button onclick="adicionarAoCarrinho('Chocolate', 20)">Adicionar</button>
+                    </div>
+                </div>
+
+                <div id="carrinho">
+                    <h2>Carrinho de Compras</h2>
+                    <ul id="lista-carrinho"></ul>
+                    <div id="total">Total: R$ 0.00</div>
+                    <button id="finalizar-compra" onclick="finalizarCompra()">Finalizar Compra</button>
+                </div>
+
+                <script>
+                    let carrinho = [];
+                    let descontoAtual = 0;
+                    let contagemGiros = 0;
+                    let controleCliqueFinalizar = 0;
+
+                    function adicionarAoCarrinho(nome, preco) {
+                        carrinho.push({ nome, preco });
+                        atualizarCarrinho();
+                    }
+
+                    function atualizarCarrinho() {
+                        let lista = document.getElementById("lista-carrinho");
+                        let total = 0;
+                        lista.innerHTML = "";
+                        carrinho.forEach((item, index) => {
+                            let li = document.createElement("li");
+                            li.innerHTML = `${item.nome} - R$ ${item.preco} <span class="remove-produto" onclick="removerProduto(${index})">🗑️</span>`;
+                            lista.appendChild(li);
+                            total += item.preco;
+                        });
+
+                        // Aplica o desconto se houver
+                        if (descontoAtual > 0) {
+                            total -= total * descontoAtual;
+                        }
+
+                        document.getElementById("total").textContent = `Total: R$ ${total.toFixed(2)}`;
+                        document.getElementById("contador-carrinho").textContent = carrinho.length;
+                    }
+
+                    function toggleCarrinho() {
+                        let carrinhoDiv = document.getElementById("carrinho");
+                        carrinhoDiv.style.display = carrinhoDiv.style.display === "none" ? "block" : "none";
+
+                    }
+
+                    function girarCacaNiqueis() {
+                        if (contagemGiros >= 5) {
+                            descontoAtual = 0.05; // Desconto especial após 5 giros
+                            document.getElementById("desconto-texto").textContent = "Você atingiu o limite de giros! va ate o carrinho e finalizer sua compra!";
+                            document.getElementById("girarBtn").disabled = true; // Desabilita o botão "Girar"
+                            return;
+                        }
+
+                        contagemGiros++;
+                        document.getElementById("contador-giros").textContent = `Giros restantes: ${5 - contagemGiros}`;
+                        // aqui vc mexe na posibilidade de acertos
+                        let simbolos = ["🍋", "🍒", "🍉", "🍊", "🍊", "🍊", "🍊", "🍊"];
+                        let slots = [
+                            document.getElementById("simbolo1"),
+                            document.getElementById("simbolo2"),
+                            document.getElementById("simbolo3")
+                        ];
+
+                        let giros = 30; // Número de vezes que os símbolos vão girar
+                        let intervalo = 100; // Tempo entre trocas (milissegundos)
+                        let contagem = 0;
+
+                        let animacao = setInterval(() => {
+                            slots.forEach(slot => {
+                                let simboloAleatorio = simbolos[Math.floor(Math.random() * simbolos.length)];
+                                slot.textContent = simboloAleatorio;
+                            });
+
+                            contagem++;
+                            if (contagem >= giros) {
+                                clearInterval(animacao); // Para a animação após 10 giros
+
+                                // Escolhe os símbolos finais
+                                let resultadoFinal = [
+                                    simbolos[Math.floor(Math.random() * simbolos.length)],
+                                    simbolos[Math.floor(Math.random() * simbolos.length)],
+                                    simbolos[Math.floor(Math.random() * simbolos.length)]
+                                ];
+
+                                slots[0].textContent = resultadoFinal[0];
+                                slots[1].textContent = resultadoFinal[1];
+                                slots[2].textContent = resultadoFinal[2];
+
+                                // Verifica combinações para aplicar descontos
+                                if (resultadoFinal[0] === "🍒" && resultadoFinal[1] === "🍒" && resultadoFinal[2] === "🍒") {
+                                    descontoAtual = 0.20;
+                                    document.getElementById("desconto-texto").textContent = "🎉 Parabéns! Você ganhou 20% de desconto!";
+                                } else if (resultadoFinal[0] === "🍋" && resultadoFinal[1] === "🍋" && resultadoFinal[2] === "🍋") {
+                                    descontoAtual = 0.10;
+                                    document.getElementById("desconto-texto").textContent = "🎉 Parabéns! Você ganhou 10% de desconto!";
+                                } else if (resultadoFinal[0] === "🍊" && resultadoFinal[1] === "🍊" && resultadoFinal[2] === "🍊") {
+                                    descontoAtual = 0.05;
+                                    document.getElementById("desconto-texto").textContent = "🎉 Parabéns! Você ganhou 5% de desconto!";
+                                }
+                            }
+                        }, intervalo);
+                    }
+
+
+                    function removerProduto(index) {
+                        carrinho.splice(index, 1);
+                        atualizarCarrinho();
+                    }
+
+                    function finalizarCompra() {
+                        let mensagem = "Olá, gostaria de finalizar a compra:\n\n";
+                        carrinho.forEach(item => {
+                            mensagem += `${item.nome} - R$ ${item.preco}\n`;
+                        });
+
+                        let totalCompra = carrinho.reduce((total, item) => total + item.preco, 0);
+
+                        if (descontoAtual > 0) {
+                            totalCompra -= totalCompra * descontoAtual;
+                            mensagem += `\nDesconto: ${descontoAtual * 100}%\nTotal com Desconto: R$ ${totalCompra.toFixed(2)}`;
+                        } else {
+                            mensagem += `\nTotal: R$ ${totalCompra.toFixed(2)}`;
+                        }
+
+                        if (controleCliqueFinalizar === 0) {
+                            controleCliqueFinalizar = 1;
+                            document.getElementById("girarBtn").disabled = false; // Habilitar o botão "Girar"
+
+                            // Oculta o carrinho na primeira vez que clicar
+                            document.getElementById("carrinho").style.display = "none";
+                        } else {
+                            controleCliqueFinalizar = 0; // Reseta para o próximo uso
+                            const urlWhatsApp = `https://wa.me/5591985125963?text=${encodeURIComponent(mensagem)}`;
+                            window.open(urlWhatsApp, "_blank");
+
+                            // Limpar o carrinho após o segundo clique
+                            carrinho = [];
+                            atualizarCarrinho();
+                        }
+                    }
+
+
+
+                    function filtrarCategoria(categoria) {
+                        const produtos = document.querySelectorAll(".produto");
+                        produtos.forEach(produto => {
+                            if (categoria === "tudo" || produto.classList.contains("categoria-" + categoria)) {
+                                produto.style.display = "block";
+                            } else {
+                                produto.style.display = "none";
+                            }
+                        });
+                    }
+                </script>
+
+</body>
+
+</html>
