@@ -125,7 +125,7 @@
             margin-top: 20px;
             font-size: 22px;
             font-weight: bold;
-            color: #ffcc00;
+            color: #ffffff;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
 
@@ -356,10 +356,10 @@
         <div class="desconto-area">
             <span id="desconto-texto">
                 Gire para ganhar um desconto!<br>
-                5% 🍋🍋🍋 <br>
-                10% 🍊🍊🍊 <br>
-                15% 🍉🍉🍉 <br>
-                20% 🍒🍒🍒
+                5% 😍😍😍 <br>
+                10% 🥰🥰🥰 <br>
+                15% 🤩🤩🤩 <br>
+                20% 🤑🤑🤑
             </span>
         </div>
 
@@ -369,10 +369,13 @@
     </div>
 
     <div class="filtro-categorias">
+        <button onclick="filtrarCategoria('tudo')">Tudo</button>
         <button onclick="filtrarCategoria('eletronicos')">Eletrônicos</button>
         <button onclick="filtrarCategoria('roupas')">Roupas</button>
         <button onclick="filtrarCategoria('alimentos')">Alimentos</button>
-        <button onclick="filtrarCategoria('tudo')">Tudo</button>
+        <button onclick="filtrarCategoria('alimentos')">Alimentos</button>
+        <button onclick="filtrarCategoria('alimentos')">Alimentos</button>
+        
     </div>
 
     <div class="container">
@@ -517,7 +520,7 @@
                         lista.innerHTML = "";
                         carrinho.forEach((item, index) => {
                             let li = document.createElement("li");
-                            li.innerHTML = `${item.nome} - R$ ${item.preco} <span class="remove-produto" onclick="removerProduto(${index})">🗑️</span>`;
+                            li.innerHTML = `${item.nome} - R$ ${item.preco} <span class="remove-produto" onclick="removerProduto(${index})">🗑️🗑️</span>`;
                             lista.appendChild(li);
                             total += item.preco;
                         });
@@ -540,7 +543,7 @@
                     function girarCacaNiqueis() {
                         if (contagemGiros >= 5) {
                             descontoAtual = 0.05; // Desconto especial após 5 giros
-                            document.getElementById("desconto-texto").textContent = "Você atingiu o limite de giros! va ate o carrinho e finalizer sua compra!";
+                            document.getElementById("desconto-texto").textContent = "Você atingiu o limite de giros! Vá até o carrinho e finalize sua compra!";
                             document.getElementById("girarBtn").disabled = true; // Desabilita o botão "Girar"
                             return;
                         }
@@ -548,7 +551,7 @@
                         contagemGiros++;
                         document.getElementById("contador-giros").textContent = `Giros restantes: ${5 - contagemGiros}`;
                         // aqui vc mexe na posibilidade de acertos
-                        let simbolos = ["🍋", "🍒", "🍉", "🍊", "🍊", "🍊", "🍊", "🍊"];
+                        let simbolos = ["😍", "🤑", "🤩", "🥰", "🥰", "🥰", "🥰", "🥰"];
                         let slots = [
                             document.getElementById("simbolo1"),
                             document.getElementById("simbolo2"),
@@ -581,13 +584,13 @@
                                 slots[2].textContent = resultadoFinal[2];
 
                                 // Verifica combinações para aplicar descontos
-                                if (resultadoFinal[0] === "🍒" && resultadoFinal[1] === "🍒" && resultadoFinal[2] === "🍒") {
+                                if (resultadoFinal[0] === "🤑" && resultadoFinal[1] === "🤑" && resultadoFinal[2] === "🤑") {
                                     descontoAtual = 0.20;
                                     document.getElementById("desconto-texto").textContent = "🎉 Parabéns! Você ganhou 20% de desconto!";
-                                } else if (resultadoFinal[0] === "🍋" && resultadoFinal[1] === "🍋" && resultadoFinal[2] === "🍋") {
+                                } else if (resultadoFinal[0] === "😍" && resultadoFinal[1] === "😍" && resultadoFinal[2] === "😍") {
                                     descontoAtual = 0.10;
                                     document.getElementById("desconto-texto").textContent = "🎉 Parabéns! Você ganhou 10% de desconto!";
-                                } else if (resultadoFinal[0] === "🍊" && resultadoFinal[1] === "🍊" && resultadoFinal[2] === "🍊") {
+                                } else if (resultadoFinal[0] === "🥰" && resultadoFinal[1] === "🥰" && resultadoFinal[2] === "🥰") {
                                     descontoAtual = 0.05;
                                     document.getElementById("desconto-texto").textContent = "🎉 Parabéns! Você ganhou 5% de desconto!";
                                 }
